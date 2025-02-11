@@ -409,6 +409,7 @@ match add_selectbox:
         )
 
         # Display in Streamlit
+        st.markdown("_En Enero del 2025 tuvimos 3 members nuevos, pasando de 112 a 115, con una participacion de 37 members, dando un 32% de actividad._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -479,6 +480,7 @@ match add_selectbox:
         )
 
         # Display in Streamlit
+        st.markdown("_En Enero se obtuvo 1 Choice y 2 Black, dando un total de 115 members al dia de hoy._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -534,6 +536,7 @@ match add_selectbox:
         )
 
         # Display the chart in Streamlit
+        st.markdown("_En Enero, las ventas netas generadas por 37 members activos con 212 transacciones son $216,207.43. SMP Members estuvo por encima de las ventas netas promedio de members._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -597,7 +600,12 @@ match add_selectbox:
             width=2000,  # Increase width
         )
 
-        # Show the figure
+        st.markdown("_El ticket promedio en enero fue de $1,019.85._")
+        st.markdown("_Los members gastan alrededor de $1,000 por compra._")
+        st.markdown("_La St.Dev es de $2,283.87._")
+        st.markdown("_Hay tickets hasta $2,200._")
+        st.markdown("_La mayoría se mantiene cerca del promedio de $1,019._")
+
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -640,10 +648,12 @@ match add_selectbox:
             values='enero 25',  # Sales values for Enero 25
             title="Sales per Vendor - Enero 25",
             labels={'Vendor': 'Vendor', 'enero 25': 'Sales ($)'},
+            color = 'Vendor',
             color_discrete_map=color_map
         )
 
         # Show the chart in Streamlit
+        st.markdown("_Grill Academy, Marca Propia y BGE fueron los Vendors con mas ventas a members._")
         st.plotly_chart(fig)
 
         # Melt the DataFrame to have a 'Vendor' and 'Sales' columns for stacked bar chart
@@ -660,7 +670,8 @@ match add_selectbox:
             title="Sales per Month by Vendor",
             labels={'Sales': 'Sales ($)', 'Month': 'Month'},
             height=500,  # Adjust the height if needed
-            barmode='stack'  # Ensure bars are stacked
+            barmode='stack',  # Ensure bars are stacked,
+            color_discrete_map=color_map
         )
 
         # Add the total sales as text on top of the stacked bars
@@ -706,6 +717,7 @@ match add_selectbox:
             color='Channel'  # Add colors for each channel
         )
         # Show the chart in Streamlit
+        st.markdown("_Las ventas online acapararon la mayor proporcion de ventas a members._")
         st.plotly_chart(fig)
 
         #Sales per channel through time
@@ -773,6 +785,7 @@ match add_selectbox:
             height=600
         )
 
+        st.markdown("_Se canjearon 11 codigos de descuento, de los cuales se incentivo a generar $48,699 en ventas de Grill Academy en Members._")
         st.plotly_chart(fig)
 
         #Webpage Usage
