@@ -2,6 +2,9 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
+import matplotlib.pyplot as plt
+from matplotlib_venn import venn3
+
 
 
 #Title
@@ -72,8 +75,40 @@ match add_selectbox:
                             <h3 style='text-align: center; color: #333;'>Followers</h3>
                             <p style='font-size: 24px; font-weight: bold; color: #333; text-align: center;'>{}</p>
                         </div>
-                    """.format("{:,}".format(int(1800969))), unsafe_allow_html=True)   
-            
+                    """.format("{:,}".format(int(1800969))), unsafe_allow_html=True)
+
+                st.markdown("---")
+
+                # Create a 3-set Venn diagram (we'll combine some of your topics)
+                plt.figure(figsize=(10, 8))
+
+                # Define the sets (you can customize these to represent your relationship)
+                venn = venn3(subsets=(1, 1, 1, 1, 1, 1, 1),
+                             set_labels=("Titulos cortos que generen discucion",
+                                         "Reels hook entrada y salida",
+                                         "Filtros de calidad"))
+
+                # Save the plot to an image
+                venn_image_path = "venn_diagram_3_sets.png"
+                plt.savefig(venn_image_path)
+
+                # Display the diagram in Streamlit
+                st.markdown(
+                    """
+                    <div style="text-align: center;">
+                        <br>
+                        <br>
+                        <h3>Best Practices Enero 2025:</h3>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+                # Show the image
+                st.image(venn_image_path, use_container_width=True)
+
+
+
             case 'IG':
                 ig_jan = dict.fromkeys(['Views', 'Reach', 'Engagement', 'Followers'])
                 ig_jan_kpis = ...
@@ -122,7 +157,18 @@ match add_selectbox:
                             <p style='font-size: 24px; font-weight: bold; color: #333; text-align: center;'>{}</p>
                         </div>
                     """.format(str("3.13%")), unsafe_allow_html=True)
-            
+
+                st.markdown("---")
+
+                st.header("Mejor Contenido de Enero:")
+                st.subheader("El secreto del sabor irresistible es la magia de la reacción de Maillard.🔥")
+                st.subheader("226,668 views")
+                st.subheader("153,879 reach")
+                st.subheader("9,184 engagement")
+                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+                st.image("static/reaccion_maillard.png", use_container_width=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+
             case 'YT':
                 col1, col2 = st.columns(2)
                 col3, col4 = st.columns(2)
@@ -177,6 +223,17 @@ match add_selectbox:
                         </div>
                     """.format(str('2.51%')), unsafe_allow_html=True)
 
+                st.markdown("---")
+
+                st.header("Mejor Contenido de Enero:")
+                st.subheader("Carbon vs Gas.🔥")
+                st.subheader("47,269 views")
+                st.subheader("42,361 reach")
+                st.subheader("129 engagement")
+                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+                st.image("static/carbonvsgas.png", use_container_width=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+
             case 'FB':
                 col1, col2 = st.columns(2)
                 col3, col4 = st.columns(2)
@@ -222,6 +279,15 @@ match add_selectbox:
                             <p style='font-size: 24px; font-weight: bold; color: #333; text-align: center;'>{}</p>
                         </div>
                     """.format(str("0.57%")), unsafe_allow_html=True)
+
+                    st.header("Mejor Contenido de Enero:")
+                    st.subheader("Ribeye completo, raza. Aquí nada se desperdicia🔥🥩")
+                    st.subheader("171,699 views")
+                    st.subheader("147,983 reach")
+                    st.subheader("3,299 engagement")
+                    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+                    st.image("static/nadasedesperdicia.png", use_container_width=True)
+                    st.markdown("</div>", unsafe_allow_html=True)
 
             case 'Tiktok':
                 col1, col2 = st.columns(2)
@@ -290,8 +356,6 @@ match add_selectbox:
 
     case 'Members':
 
-        st.markdown("Active Members")
-
         # Load data
         active_members = pd.read_csv(r'members/members_analysis(activemembers).csv')
 
@@ -313,7 +377,7 @@ match add_selectbox:
             y=total_members,
             name='Total Members',
             yaxis='y1',
-            marker_color='blue',
+            marker_color='light blue',
             text=[f'{int(t)}' for t in total_members],  # Round total members
             textposition='outside',  # Position labels outside bars
             textfont=dict(color='black')
@@ -328,8 +392,8 @@ match add_selectbox:
             mode='lines+markers+text',  # Include text labels
             marker_color='red',
             text=[f'{p:.2%}' for p in percentages],  # Format percentage labels
-            textposition='bottom center',  # Position labels above markers
-            textfont=dict(color='black')
+            textposition='top center',  # Position labels above markers
+            textfont=dict(size = 14,color='black')
         ))
 
         # Update layout
@@ -340,7 +404,9 @@ match add_selectbox:
             yaxis2=dict(title='%', overlaying='y', side='right', showgrid=False),
             legend=dict(x=0.1, y=1.1, orientation='h'),
             barmode='group',
-            margin=dict(t=90, b=100, l=100, r=100)  # Adjusting margins (top, bottom, left, right)
+            width=1500,  # Increase width
+            height=500,  # Increase height
+            margin=dict(t=60, b=80, l=40, r=40)  # Adjusting margins (top, bottom, left, right)
 
         )
 
@@ -409,6 +475,8 @@ match add_selectbox:
             yaxis=dict(title='Number of Members'),
             barmode='stack',
             legend=dict(x=0.1, y=1.1, orientation='h'),
+            width=1200,  # Increase width
+            height=650,  # Increase height
             margin = dict(t=90, b=100, l=100, r=100)  # Adjusting margins (top, bottom, left, right)
         )
 
@@ -420,6 +488,7 @@ match add_selectbox:
         net_sales = pd.read_csv(r'members/members_analysis(net sales thru time).csv')
         net_sales.rename(columns={'month': 'Month'}, inplace=True)
         net_sales.rename(columns={'net sales': 'Net Sales'}, inplace=True)
+        net_sales = net_sales[net_sales['Month'].astype(str).str.contains('24|25', regex=True)]
         net_sales['Net Sales'] = net_sales['Net Sales'].replace({'\$': '', ',': ''}, regex=True).astype(float)
 
         # Calculate the average line
@@ -433,10 +502,11 @@ match add_selectbox:
             x=net_sales["Month"],
             y=net_sales["Net Sales"],
             name='Net Sales',
-            marker_color='blue',
+            marker_color='light blue',
             text=[f"${x:,.2f}" for x in net_sales["Net Sales"]],
             textposition='outside',
-            textfont=dict(size=20, color='black')  # Adjust font size and color for total
+            textfont=dict(size=10, color='black'),  # Adjust font size and color for total
+            cliponaxis=False
 
         ))
 
@@ -459,8 +529,10 @@ match add_selectbox:
             barmode='group',
             legend=dict(x=0.1, y=1.1, orientation='h'),
             showlegend=True,
-            margin=dict(t=90, b=20, l=20, r=20)  # Adjusting margins (top, bottom, left, right)
-
+            width=2000,  # Increase width
+            height=600,  # Increase height
+            margin=dict(t=110, b=100, l=100, r=100),  # Adjusting margins (top, bottom, left, right)
+            uniformtext=dict(minsize=10, mode='show')
         )
 
         # Display the chart in Streamlit
@@ -474,28 +546,37 @@ match add_selectbox:
         ticket_avg = avg_ticket.loc['ticket avg'].values
         stdev = avg_ticket.loc['stdev'].values
 
-        # Extract months from the column headers
+        # Extract months from the column headers (excluding 'Index')
         months = avg_ticket.columns.tolist()
+
+        # Filter months to only include those with '24' or '25' in the year part
+        filtered_months = [month for month in months if '24' in month or '25' in month]
+
+        # Keep only columns corresponding to the filtered months
+        avg_ticket_filtered = avg_ticket[filtered_months]
 
         # Create the figure
         fig = go.Figure()
 
         # Add bar trace for ticket averages
         fig.add_trace(go.Bar(
-            x=months,
-            y=ticket_avg,
+            x=filtered_months,
+            y=ticket_avg[:len(filtered_months)],
             name='Ticket Average',
-            marker_color='blue',
+            marker_color='light blue',
             error_y=dict(
                 type='data',  # Error bars are based on the 'stdev' values
-                array=stdev,
+                array=stdev[:len(filtered_months)],
                 visible=True,
                 thickness=1.5,  # Adjust the thickness of error bars
-                width=5  # Adjust the width of error bars
+                width=5,  # Adjust the width of error bars
+                color='red'
             ),
-            text=ticket_avg,  # Add ticket average values as data labels
+            text=[f"${val:.2f}" for val in ticket_avg[:len(filtered_months)]],  # Format labels
             textposition='outside',  # Position the labels inside the bars
-            textfont=dict(size=20, color='black')  # Adjust font size and color for total
+            texttemplate="%{text}",  # Use texttemplate to avoid resizing
+            insidetextanchor="start",
+            textfont=dict(size=40, color='black'),  # Adjust font size and color for total
         ))
 
         # Update layout to make the chart look better
@@ -505,9 +586,17 @@ match add_selectbox:
             yaxis=dict(title="Ticket Average", tickprefix="$"),
             barmode='group',
             showlegend=True,
-            margin=dict(l=20, r=20, t=50, b=50),  # Increase bottom margin for labels
+            legend=dict(
+                orientation="h",  # Horizontal legend
+                yanchor="bottom",
+                y=1.0,  # Move legend above chart
+                xanchor="center",
+                x=0.5
+            ),
+            margin=dict(l=20, r=20, t=100, b=100),  # Increase bottom margin for labels
             autosize=True,  # Ensure the plot scales to fit the size of the labels
             height=600,  # Adjust height if needed
+            width=2000,  # Increase width
         )
 
         # Show the figure
@@ -533,7 +622,6 @@ match add_selectbox:
 
         # Show the chart in Streamlit
         st.plotly_chart(fig)
-        st.markdown("---")
 
         # Melt the DataFrame to have a 'Vendor' and 'Sales' columns for stacked bar chart
         member_sales_melted = member_sales_vendor.melt(id_vars=["Vendor"], var_name="Month", value_name="Sales")
@@ -614,3 +702,56 @@ match add_selectbox:
         )
         # Show the chart in Streamlit
         st.plotly_chart(fig)
+        st.markdown("---")
+
+        #SMP Cash
+        df = pd.read_csv(r'members/members_analysis(smp cash).csv')
+
+        # Create the figure
+        fig = go.Figure()
+
+        # Add bar chart for Redeemed
+        fig.add_trace(go.Bar(
+            x=df["Mes"],
+            y=df["Redeemed"],
+            name="Redeemed",
+            marker_color="lightblue",
+            text=df["Redeemed"],
+            textposition="inside"
+        ))
+
+        # Add line chart for Total Sales (secondary y-axis)
+        fig.add_trace(go.Scatter(
+            x=df["Mes"],
+            y=df["Total Sales"],
+            name="Total Sales",
+            mode="lines+markers+text",  # Ensure markers and text are included
+            yaxis="y2",
+            line=dict(color="red", width=3),
+            marker=dict(size=8),
+            text=[f"${x:,.2f}" for x in df["Total Sales"]],  # Add data labels for Total Sales
+            textposition="bottom center",  # Position the labels above the markers
+            textfont=dict(size=12, color="black")  # Adjust font size and color for Total Sales labels
+        ))
+
+        # Update layout
+        fig.update_layout(
+            title="SMP Cash Redeemed vs Total Sales",
+            xaxis=dict(title="Month"),
+            yaxis=dict(title="Redeemed"),
+            yaxis2=dict(
+                title="Total Sales ($)",
+                overlaying="y",
+                side="right",
+                showgrid=False
+            ),
+            legend=dict(x=0.1, y=1.1, orientation="h"),
+            width=1200,
+            height=600
+        )
+
+        st.plotly_chart(fig)
+
+        #Webpage Usage
+        # members_web = pd.read_csv(r"members/members_analysis(soyparrillero members web usage).csv")
+        # soypa_web = pd.read_csv(r"members/members_analysis(soyparrillero mx web usage).csv")
