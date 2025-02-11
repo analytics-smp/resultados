@@ -775,7 +775,12 @@ match add_selectbox:
         st.markdown(
             "_Se canjearon 11 códigos de descuento, los cuales incentivaron la generación de $48,699 en ventas de Grill Academy en Members._")
         st.plotly_chart(fig)
+        st.markdown("---")
 
         #Webpage Usage
-        # members_web = pd.read_csv(r"members/members_analysis(soyparrillero members web usage).csv")
-        # soypa_web = pd.read_csv(r"members/members_analysis(soyparrillero mx web usage).csv")
+        st.markdown("Members Web")
+        st.image('static/Members.png', use_container_width=True)
+
+        st.markdown("Soyparrilleromx Web")
+        st.image('static/Soyparrillero.png', use_container_width=True)
+
