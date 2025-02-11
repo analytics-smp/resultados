@@ -2,8 +2,6 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
-import matplotlib.pyplot as plt
-from matplotlib_venn import venn3
 
 st.set_page_config(page_title="MKT/Members Results", page_icon="📱", layout="centered", initial_sidebar_state="auto")
 
@@ -79,19 +77,6 @@ match add_selectbox:
 
                 st.markdown("---")
 
-                # Create a 3-set Venn diagram (we'll combine some of your topics)
-                plt.figure(figsize=(10, 8))
-
-                # Define the sets (you can customize these to represent your relationship)
-                venn = venn3(subsets=(1, 1, 1, 1, 1, 1, 1),
-                             set_labels=("Titulos cortos que generen interaccion",
-                                         "Reels hook entrada y salida",
-                                         "Filtros de calidad"))
-
-                # Save the plot to an image
-                venn_image_path = "venn_diagram_3_sets.png"
-                plt.savefig(venn_image_path)
-
                 # Display the diagram in Streamlit
                 st.markdown(
                     """
@@ -105,7 +90,7 @@ match add_selectbox:
                 )
 
                 # Show the image
-                st.image(venn_image_path, use_container_width=True)
+                st.image('static/mejorespracticasenero.png', use_container_width=True)
 
             case 'IG':
                 ig_jan = dict.fromkeys(['Views', 'Reach', 'Engagement', 'Followers'])
@@ -409,7 +394,8 @@ match add_selectbox:
         )
 
         # Display in Streamlit
-        st.markdown("_En Enero del 2025 tuvimos 3 members nuevos, pasando de 112 a 115, con una participacion de 37 members, dando un 32% de actividad._")
+        st.markdown(
+            "_En enero de 2025 tuvimos 3 miembros nuevos, pasando de 112 a 115, con una participación de 37 miembros, lo que da un 32% de actividad._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -480,7 +466,7 @@ match add_selectbox:
         )
 
         # Display in Streamlit
-        st.markdown("_En Enero se obtuvo 1 Choice y 2 Black, dando un total de 115 members al dia de hoy._")
+        st.markdown("_En enero se obtuvieron 1 Choice y 2 Black, dando un total de 115 miembros hasta el día de hoy._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -536,7 +522,8 @@ match add_selectbox:
         )
 
         # Display the chart in Streamlit
-        st.markdown("_En Enero, las ventas netas generadas por 37 members activos con 212 transacciones son $216,207.43. SMP Members estuvo por encima de las ventas netas promedio de members._")
+        st.markdown(
+            "_En enero, las ventas netas generadas por 37 miembros activos con 212 transacciones fueron de $216,207.43. SMP Members estuvo por encima de las ventas netas promedio de los miembros._")
         st.plotly_chart(fig)
         st.markdown("---")
 
@@ -601,9 +588,9 @@ match add_selectbox:
         )
 
         st.markdown("_El ticket promedio en enero fue de $1,019.85._")
-        st.markdown("_Los members gastan alrededor de $1,000 por compra._")
-        st.markdown("_La St.Dev es de $2,283.87._")
-        st.markdown("_Hay tickets hasta $2,200._")
+        st.markdown("_Los miembros gastan alrededor de $1,000 por compra._")
+        st.markdown("_La desviación estándar es de $2,283.87._")
+        st.markdown("_Hay tickets de hasta $2,200._")
         st.markdown("_La mayoría se mantiene cerca del promedio de $1,019._")
 
         st.plotly_chart(fig)
@@ -653,7 +640,7 @@ match add_selectbox:
         )
 
         # Show the chart in Streamlit
-        st.markdown("_Grill Academy, Marca Propia y BGE fueron los Vendors con mas ventas a members._")
+        st.markdown("_Grill Academy, Marca Propia y Big Green Egg (BGE) fueron los vendors con más ventas a miembros._")
         st.plotly_chart(fig)
 
         # Melt the DataFrame to have a 'Vendor' and 'Sales' columns for stacked bar chart
@@ -717,7 +704,7 @@ match add_selectbox:
             color='Channel'  # Add colors for each channel
         )
         # Show the chart in Streamlit
-        st.markdown("_Las ventas online acapararon la mayor proporcion de ventas a members._")
+        st.markdown("_Las ventas en línea acapararon la mayor proporción de ventas a miembros._")
         st.plotly_chart(fig)
 
         #Sales per channel through time
@@ -785,7 +772,8 @@ match add_selectbox:
             height=600
         )
 
-        st.markdown("_Se canjearon 11 codigos de descuento, de los cuales se incentivo a generar $48,699 en ventas de Grill Academy en Members._")
+        st.markdown(
+            "_Se canjearon 11 códigos de descuento, los cuales incentivaron la generación de $48,699 en ventas de Grill Academy en Members._")
         st.plotly_chart(fig)
 
         #Webpage Usage
