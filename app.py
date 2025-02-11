@@ -143,7 +143,7 @@ match add_selectbox:
 
                 st.markdown("---")
 
-                st.header("Mejor Contenido de Enero:")
+                st.header("⭐Mejor Contenido de Enero⭐")
                 st.subheader("El secreto del sabor irresistible es la magia de la reacción de Maillard.🔥")
                 st.subheader("226,668 views")
                 st.subheader("153,879 reach")
@@ -208,7 +208,7 @@ match add_selectbox:
 
                 st.markdown("---")
 
-                st.header("Mejor Contenido de Enero:")
+                st.header("⭐Mejor Contenido de Enero⭐")
                 st.subheader("Carbon vs Gas.🔥")
                 st.subheader("47,269 views")
                 st.subheader("42,361 reach")
@@ -263,7 +263,7 @@ match add_selectbox:
                         </div>
                     """.format(str("0.57%")), unsafe_allow_html=True)
 
-                    st.header("Mejor Contenido de Enero:")
+                    st.header("⭐Mejor Contenido de Enero⭐")
                     st.subheader("Ribeye completo, raza. Aquí nada se desperdicia🔥🥩")
                     st.subheader("171,699 views")
                     st.subheader("147,983 reach")
@@ -309,6 +309,14 @@ match add_selectbox:
                         </div>
                     """.format(str("6.73%")), unsafe_allow_html=True)
 
+                st.header("⭐Mejor Contenido de Enero⭐")
+                st.subheader("Raza, ya saben cuando sazonar su carnita asada?")
+                st.subheader("156k views")
+                st.subheader("6,976 engagement")
+                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+                st.image("static/tiktokbest.png", use_container_width=True)
+                st.markdown("</div>", unsafe_allow_html=True)
+
             case 'LinkedIn':
                 col1, col2 = st.columns(2)
                 col3 = st.columns(1)
@@ -336,6 +344,14 @@ match add_selectbox:
                             <p style='font-size: 24px; font-weight: bold; color: #333; text-align: center;'>{}</p>
                         </div>
                     """.format(str("2,311")), unsafe_allow_html=True)
+
+                st.header("⭐Mejor Contenido de Enero⭐")
+                st.subheader("🔥 Una experiencia a la parrilla para los grandes del acero 🔥El pasado 9 de noviembre, en la Sociedad Mexicana de Parrilleros, tuvimos el honor de organizar un curso para los jugadores de los Pittsburgh Steelers 🏈.")
+                st.subheader("2,144 impressions (image)")
+                st.subheader("747 engagement")
+                st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+                st.image("static/linkedinbest.jpeg", use_container_width=True)
+                st.markdown("</div>", unsafe_allow_html=True)
 
     case 'Members':
 
