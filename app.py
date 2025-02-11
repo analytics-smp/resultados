@@ -107,8 +107,6 @@ match add_selectbox:
                 # Show the image
                 st.image(venn_image_path, use_container_width=True)
 
-
-
             case 'IG':
                 ig_jan = dict.fromkeys(['Views', 'Reach', 'Engagement', 'Followers'])
                 ig_jan_kpis = ...
@@ -552,8 +550,8 @@ match add_selectbox:
         # Filter months to only include those with '24' or '25' in the year part
         filtered_months = [month for month in months if '24' in month or '25' in month]
 
-        # Keep only columns corresponding to the filtered months
-        avg_ticket_filtered = avg_ticket[filtered_months]
+        ticket_avg_filtered = ticket_avg[months.index(filtered_months[0]):months.index(filtered_months[-1]) + 1]
+        stdev_filtered = stdev[months.index(filtered_months[0]):months.index(filtered_months[-1]) + 1]
 
         # Create the figure
         fig = go.Figure()
@@ -561,20 +559,20 @@ match add_selectbox:
         # Add bar trace for ticket averages
         fig.add_trace(go.Bar(
             x=filtered_months,
-            y=ticket_avg[:len(filtered_months)],
+            y=ticket_avg_filtered,
             name='Ticket Average',
             marker_color='light blue',
             error_y=dict(
                 type='data',  # Error bars are based on the 'stdev' values
-                array=stdev[:len(filtered_months)],
+                array=stdev_filtered,
                 visible=True,
                 thickness=1.5,  # Adjust the thickness of error bars
                 width=5,  # Adjust the width of error bars
                 color='red'
             ),
-            text=[f"${val:.2f}" for val in ticket_avg[:len(filtered_months)]],  # Format labels
+            text=[f"${val:.2f}" for val in ticket_avg_filtered],  # Format labels
             textposition='outside',  # Position the labels inside the bars
-            texttemplate="%{text}",  # Use texttemplate to avoid resizing
+            texttemplate="%{text}",  # Use texttemplate toticket_avg[:len(filtered_months)]] avoid resizing
             insidetextanchor="start",
             textfont=dict(size=40, color='black'),  # Adjust font size and color for total
         ))
@@ -604,6 +602,7 @@ match add_selectbox:
         st.markdown("---")
 
         member_sales_vendor = pd.read_csv(r'members/members_analysis(net sales per vendor time).csv')
+        member_sales_vendor['Vendor'] = member_sales_vendor['Vendor'].str.strip()
 
         # Filter the relevant column for 'enero 25' (January 2025)
         member_sales_enero_25 = member_sales_vendor['enero 25']
@@ -611,13 +610,37 @@ match add_selectbox:
         # Drop the row labeled 'Total' since we don't need it for the pie chart
         member_sales_vendor = member_sales_vendor[member_sales_vendor['Vendor'] != 'Total']
 
+        # Define a color map for vendors, making "Big Green Egg" green
+        color_map = {
+            'Big Green Egg': 'green',  # Set 'Big Green Egg' to green
+            'Grill Academy': 'lightblue',
+            'Marca Propia': 'orange',
+            'Victorinox': 'purple',
+            'SMP MEMBERS': 'pink',
+            'BLACKSTONE': 'red',
+            'Lodge Cast Iron': 'brown',
+            'Cinsa': 'gray',
+            'New Era': 'yellow',
+            'Lulo Gelato': 'lightgreen',
+            'Proan': 'blue',
+            'Stanley': 'lightcoral',
+            'Weber': 'teal',
+            'Kingsford': 'gold',
+            'Franks': 'lightpink',
+            'Royal Kitchen': 'lightyellow',
+            'Grill Master': 'lightgreen',
+            'Pines Cursos': 'lightcyan',
+            'Asadores MTY': 'lavender'
+        }
+
         # Create the pie chart
         fig = px.pie(
             member_sales_vendor,  # DataFrame to be used
             names='Vendor',  # Vendor names as labels
             values='enero 25',  # Sales values for Enero 25
             title="Sales per Vendor - Enero 25",
-            labels={'Vendor': 'Vendor', 'enero 25': 'Sales ($)'}
+            labels={'Vendor': 'Vendor', 'enero 25': 'Sales ($)'},
+            color_discrete_map=color_map
         )
 
         # Show the chart in Streamlit
@@ -736,7 +759,7 @@ match add_selectbox:
 
         # Update layout
         fig.update_layout(
-            title="SMP Cash Redeemed vs Total Sales",
+            title="SMP Cash Redeemed vs Grill Academy Member Total Sales",
             xaxis=dict(title="Month"),
             yaxis=dict(title="Redeemed"),
             yaxis2=dict(
