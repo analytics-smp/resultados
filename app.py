@@ -5,7 +5,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn3
 
-
+st.set_page_config(page_title="MKT/Members Results", page_icon="📱", layout="centered", initial_sidebar_state="auto")
 
 #Title
 st.markdown("<h1 style='text-align: center;'>Resultados de Enero</h1>", unsafe_allow_html=True)
@@ -84,7 +84,7 @@ match add_selectbox:
 
                 # Define the sets (you can customize these to represent your relationship)
                 venn = venn3(subsets=(1, 1, 1, 1, 1, 1, 1),
-                             set_labels=("Titulos cortos que generen discucion",
+                             set_labels=("Titulos cortos que generen interaccion",
                                          "Reels hook entrada y salida",
                                          "Filtros de calidad"))
 
